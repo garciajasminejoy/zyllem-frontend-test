@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -18,7 +19,12 @@ import { NormalArticleComponent } from './components/articles/normal/normal-arti
   imports: [
     BrowserModule,
     MatCardModule,
+    MatSelectModule,
     BrowserAnimationsModule
+  ],
+  entryComponents: [
+    FeaturedArticleComponent,
+    NormalArticleComponent,
   ],
   providers: [ZyllemApiService],
   bootstrap: [AppComponent]

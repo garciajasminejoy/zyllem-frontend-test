@@ -1,0 +1,14 @@
+<div class="articles">
+  <mat-form-field>
+    <mat-label>Article Type</mat-label>
+    <mat-select (valueChange)="filterArticles($event)" [value]="articleTypes[0]">
+      <mat-option *ngFor="let type of articleTypes" [value]="type">
+        {{type}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div class="article-cards">
+    <ng-container #articlesContainer></ng-container>
+  </div>
+</div>
+
