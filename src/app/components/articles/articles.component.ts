@@ -1,8 +1,8 @@
 import { Component, ComponentFactoryResolver, ComponentRef, OnDestroy, OnInit, Renderer2, ViewChild, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, combineLatest, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ZyllemApiService } from 'src/app/app.service';
-import { Article, ArticleType } from 'src/app/model/article';
+import { ArticleUiModel, ZyllemApiService } from 'src/app/app.service';
+import { ArticleType } from 'src/app/model/article';
 import { FeaturedArticleComponent } from './featured/featured-article.component';
 import { NormalArticleComponent } from './normal/normal-article.component';
 
@@ -16,7 +16,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
   articleComponentRefs: ComponentRef<any>[];
   onDestroy$: Subject<void> = new Subject();
 
-  articles: Article[] = [];
+  articles: ArticleUiModel[] = [];
   articleTypes: string[] = ['ALL', ...Object.values(ArticleType)];
   selectedArticleTypeSubject = new BehaviorSubject<string>('ALL');
 
@@ -33,7 +33,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       ).pipe(takeUntil(this.onDestroy$))
         .subscribe(([articles, selectedType]) => {
           this.articles = selectedType !== 'ALL' ?
-            articles.filter(a => a.type === selectedType) :
+            articles.filter(a => a.articleType === selectedType) :
             articles;
           this.displayArticles();
         });
@@ -52,7 +52,7 @@ export class ArticlesComponent implements OnInit, OnDestroy {
       let factory;
       let componentRef;
 
-      switch (article.type) {
+      switch (article.articleType) {
         case ArticleType.FEATURED:
           factory = this.resolver.resolveComponentFactory(FeaturedArticleComponent);
           break;

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FeaturedArticle } from 'src/app/model/article';
+import { ArticleUiModel } from 'src/app/app.service';
 
 @Component({
   selector: 'app-featured-article',
@@ -7,7 +7,7 @@ import { FeaturedArticle } from 'src/app/model/article';
   styleUrls: ['./featured-article.component.css']
 })
 export class FeaturedArticleComponent implements OnInit {
-  @Input() article: FeaturedArticle;
+  @Input() article: ArticleUiModel;
 
   constructor() { }
 

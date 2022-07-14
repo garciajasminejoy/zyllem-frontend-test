@@ -1,3 +1,22 @@
 .article-page {
   padding: 20px;
 }
+
+.article-content {
+  margin-top: 4rem;
+}
+
+.article-link {
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.article-content img {
+  max-width: 50%;
+}
+
+@media screen and (max-width: 600px) {
+  .article-content img {
+    max-width: 100%;
+  }
+}

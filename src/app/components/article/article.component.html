@@ -1,11 +1,15 @@
-<div class="article-page" *ngIf="article">
-  <h2>{{ article.title }}</h2>
-  <i *ngIf="article.author">by {{ article.author }}</i>
+<div class="article-page" *ngIf="title">
+  <h2>{{ title }}</h2>
+  <i *ngIf="author">by {{ author }}</i>
 
-  <ng-container [ngSwitch]="article.type">
+  <div  class="article-content" [ngSwitch]="articleType">
     <div *ngSwitchCase="'FEATURED'">
-      <img alt="">
+      <img [src]="content" alt="Article Image">
     </div>
-    <div *ngSwitchCase="'NORMAL'"></div>
-  </ng-container>
+    <div *ngSwitchCase="'NORMAL'">
+      <p [innerHTML]="content"></p>
+    </div>
+  </div>
+
+  <a *ngIf="articleUrl" [href]="articleUrl" target="_blank" class="article-link">View Original Article</a>
 </div>

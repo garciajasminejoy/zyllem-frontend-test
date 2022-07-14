@@ -1,11 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Article, ArticleType } from './model/article';
+import { map } from 'rxjs/operators';
+import { ArticleType } from './model/article';
+
+export interface ArticleUiModel {
+  id: string;
+  title: string;
+  author: string;
+  content?: string;
+  publishedAt: string;
+  articleUrl: string;
+  articleType: ArticleType;
+}
 
 @Injectable()
 export class ZyllemApiService {
-    articlesSubject = new BehaviorSubject<Article[]>([]);
+    articlesSubject = new BehaviorSubject<ArticleUiModel[]>([]);
 
     constructor(private httpClient: HttpClient) {}
 
@@ -18,34 +29,38 @@ export class ZyllemApiService {
           language: 'en'
         }
       }).subscribe(({results}) => {
-        const transformedResults = results.map((article, i) => {
-          let transformedArticle: any = {
-            id: `${i + 1}`,
-            title: article.title,
-            author: !!article.creator ? article.creator.join(', ') : '',
-            publishedAt: new Date(article.pubDate).toISOString(),
-            url: article.link,
-            type: i%2===0 ? ArticleType.FEATURED : ArticleType.NORMAL,
-          };
-
-          if (i % 2 === 0) {
-            transformedArticle.featureImgUrl = article.image_url || 'assets/images/news.png';
-          } else {
-            transformedArticle.description = article.description;
-          }
-
-          return transformedArticle;
-        });
-        const sortedTransformedData = transformedResults.sort(x => x.type === ArticleType.FEATURED ? -1 : 1);
+        const transformedResults = results.map((article, index) => this.transformArticleModelToUiModel(article, index));
+        const sortedTransformedData = transformedResults.sort(x => x.articleType === ArticleType.FEATURED ? -1 : 1);
         this.articlesSubject.next(sortedTransformedData);
       });
     }
 
-    getArticles(): Observable<Article[]> {
+    getArticles(): Observable<ArticleUiModel[]> {
         return this.articlesSubject.asObservable();
     }
 
-    getArticlesById(id: string): Article {
-      return this.articlesSubject.getValue().find(article => article.id === id);
+    getArticlesById$(id: string): Observable<ArticleUiModel> {
+      return this.articlesSubject.pipe(
+        map(articles => articles.find(a => a.id === id))
+      );
+    }
+
+    private transformArticleModelToUiModel(article: any, index: number): ArticleUiModel {
+      let transformedArticle: ArticleUiModel = {
+        id: `${index + 1}`,
+        title: article.title,
+        author: !!article.creator ? article.creator.join(', ') : '',
+        publishedAt: new Date(article.pubDate).toISOString(),
+        articleUrl: article.link,
+        articleType: (index + 1)%2 == 0 ? ArticleType.FEATURED : ArticleType.NORMAL,
+      };
+
+      if (transformedArticle.articleType === ArticleType.FEATURED) {
+        transformedArticle.content = article.image_url || 'assets/images/news.png';
+      } else {
+        transformedArticle.content = article.description;
+      }
+
+      return transformedArticle;
     }
 }
