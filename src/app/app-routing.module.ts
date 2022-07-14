@@ -16,6 +16,10 @@ const routes = [
   {
     path: 'articles/:id',
     component: ArticleComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'articles'
   }
 ];
 
