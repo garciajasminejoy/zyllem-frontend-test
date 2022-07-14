@@ -1,0 +1,11 @@
+<div class="article-page" *ngIf="article">
+  <h2>{{ article.title }}</h2>
+  <i *ngIf="article.author">by {{ article.author }}</i>
+
+  <ng-container [ngSwitch]="article.type">
+    <div *ngSwitchCase="'FEATURED'">
+      <img alt="">
+    </div>
+    <div *ngSwitchCase="'NORMAL'"></div>
+  </ng-container>
+</div>

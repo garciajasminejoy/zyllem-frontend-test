@@ -14,14 +14,44 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   justify-content: flex-end;
 }
 
+.mat-card .mat-card-header {
+  min-height: 84px;
+}
+
 .mat-card .mat-card-header-text {
   margin:0;
+}
+
+.mat-card .mat-card-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  /* autoprefixer: off */
+}
+
+.mat-card .mat-card-content {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  /* autoprefixer: off */
+}
+
+.mat-card .mat-card-image {
+  max-height: 150px;
+  object-fit: contain;
+  width: 100%;
 }
 
 .article-link {
   color: rgb(223,73,74);
   padding: 8px 12px;
-  margin: 10px;
+  margin: 0 10px 10px 0;
   text-align: end;
   text-decoration: none;
   border: 1px solid;

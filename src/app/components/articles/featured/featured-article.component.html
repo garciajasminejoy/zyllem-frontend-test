@@ -5,6 +5,6 @@
   </mat-card-header>
   <img mat-card-image [src]="article.featureImgUrl" [alt]="article.title">
   <mat-card-actions>
-    <a [href]="article.url" target="_blank" class="article-link">Read More</a>
+    <a routerLink="/articles/{{ article.id }}" class="article-link">Read more</a>
   </mat-card-actions>
 </mat-card>

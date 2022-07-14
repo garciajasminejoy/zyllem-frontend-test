@@ -1,14 +1,33 @@
-<div class="articles">
-  <mat-form-field>
-    <mat-label>Article Type</mat-label>
-    <mat-select (valueChange)="filterArticles($event)" [value]="articleTypes[0]">
-      <mat-option *ngFor="let type of articleTypes" [value]="type">
-        {{type}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div class="article-cards">
-    <ng-container #articlesContainer></ng-container>
+<h2>Articles</h2>
+<h3>List of article goes here:</h3>
+
+<!-- To put the articles inside this container -->
+<div class="article-container">
+  <!-- Feel free to remove this holder -->
+  <div class="article-list-holder">
+    <div class="articles">
+      <mat-form-field>
+        <mat-label>Article Type</mat-label>
+        <mat-select (valueChange)="filterArticles($event)" [value]="articleTypes[0]">
+          <mat-option *ngFor="let type of articleTypes" [value]="type">
+            {{type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="article-cards">
+        <ng-container #articlesContainer></ng-container>
+      </div>
+    </div>
   </div>
-</div>
+</div><!--.article-container-->
+
+<div class="bonus-point-container">
+  <h3>Bonus Points:</h3>
+  <ul>
+    <li>Apply a nice template for the article list</li>
+    <li>Allow to filter by article type</li>
+    <li>Get real data from an API to replace our mock data</li>
+    <li>Apply angular router to show an article detail page when you open it from the list</li>
+  </ul>
+</div> <!--.bonus-point-container -->
 

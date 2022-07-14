@@ -7,6 +7,6 @@
     <p [innerHTML]="article.description"></p>
   </mat-card-content>
   <mat-card-actions>
-    <a [href]="article.url" target="_blank" class="article-link">Read More</a>
+    <a routerLink="/articles/{{ article.id }}" class="article-link">Read more</a>
   </mat-card-actions>
 </mat-card>
